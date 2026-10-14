@@ -1,0 +1,13 @@
+__pycache__     # Не тягнемо кеш Python у контейнер
+*.pyc
+*.pyo
+*.pyd
+.Python
+.venv           # Контейнер сам скачає собі бібліотеки під Linux/Windows/MacOS
+venv
+.git            # Історія Git всередині контейнера не потрібна
+.gitignore
+.env            # Змінні ми передамо безпечно через docker-compose
+.idea           # Налаштування PyCharm/VSCode серверу не потрібні
+.vscode
+README.md       # Документація серверу для роботи не потрібна
