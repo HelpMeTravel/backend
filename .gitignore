@@ -1,24 +1,19 @@
-# кеш python, коли він запускає код
 __pycache__/
 *.py[cod]
 *$py.class
 
-# віртуальне середовище (бібліотеки скачані і тд)
 .venv/
 venv/
 ENV/
 env/
 
-# паролі\локальні змінні
 .env
 *.env.local
 
-# налаштування IDEA
 .idea/
 .vscode/
 *.swp
 *.swo
 
-# файли докера
 .docker/
 *.log
