@@ -6,7 +6,7 @@ from sqlalchemy.orm import selectinload
 
 from app.core.database import get_db
 from app.models.models import Country, City
-from app.schemas.rules import (
+from app.schemas.rule import (
     CountryCreate,
     CountryResponse,
     CountryDetailResponse,

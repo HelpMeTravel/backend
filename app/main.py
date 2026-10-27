@@ -2,6 +2,7 @@ from datetime import datetime, timezone, timedelta
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.sessions import SessionMiddleware
 from sqlalchemy import select
 
 from app.core.database import engine, Base, async_session_maker
@@ -10,6 +11,7 @@ from app.models.models import User, Country, City, Rule, PriceItem, FineItem
 from app.models.enums import UserRole, RuleStatus
 from app.api.reference import router as reference_router
 from app.api.rules import router as rules_router
+from app.routers.auth import router as auth_router  # <-- Підключаємо роутер аутентифікації
 
 
 async def seed_initial_data():
@@ -26,6 +28,7 @@ async def seed_initial_data():
             role=UserRole.USER,
             is_blocked=False,
             badge="Top Contributor",
+            password_hash="hashed_dummy_password"
         )
         session.add(author)
 
@@ -98,6 +101,12 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+# Обов'язково для Google OAuth сесій
+app.add_middleware(
+    SessionMiddleware,
+    secret_key="super-secret-key-for-session-transport-app"
+)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
@@ -109,8 +118,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Підключення всіх роутерів під загальним префіксом /api
 app.include_router(reference_router, prefix="/api")
 app.include_router(rules_router, prefix="/api")
+app.include_router(auth_router, prefix="/api")  # <-- Реєстрація / Логін / OAuth
 
 
 @app.get("/health")
