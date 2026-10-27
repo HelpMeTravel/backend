@@ -19,3 +19,14 @@ class UserResponse(UserBase):
     class Config:
         from_attributes = True
         populate_by_name = True
+
+from pydantic import BaseModel, EmailStr
+
+class UserRegister(BaseModel):
+    email: EmailStr
+    username: str
+    password: str
+
+class UserLogin(BaseModel):
+    username: str
+    password: str

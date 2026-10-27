@@ -7,7 +7,7 @@ from sqlalchemy.orm import selectinload
 from app.core.database import get_db
 from app.models.models import Rule, City, Country
 from app.models.enums import RuleStatus
-from app.schemas.rules import RuleListResponse, RuleDetailResponse
+from app.schemas.rule import RuleListResponse, RuleDetailResponse
 
 router = APIRouter(prefix="/rules", tags=["Public Rules"])
 

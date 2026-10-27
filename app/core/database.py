@@ -3,7 +3,8 @@ from collections.abc import AsyncGenerator
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import DeclarativeBase
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+
+DATABASE_URL='postgresql+asyncpg://hmt_user:hmt_password@db:5432/helpmetravel_db'
 
 if not DATABASE_URL:
     raise ValueError("DATABASE_URL is not set in environment variables")
